@@ -1,0 +1,27 @@
+#layout{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.letterBox{
+
+	font-size: 2.5rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	height: 3rem;
+	width: 3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid gray;
+	border-radius: 3px;
+}
+
+.usedBox {
+  border: 2px solid black;
+}
+
+.wordRow {
+  display: flex;
+}
