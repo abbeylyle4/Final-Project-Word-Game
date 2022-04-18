@@ -1,119 +1,116 @@
 // dependencies / things imported
-   import { LitElement, html, css } from 'lit';
+  import { LitElement, html, css } from 'lit';
  
-   // EXPORT (so make available to other documents that reference this file) a class, that extends LitElement
-   // which has the magic life-cycles and developer experience below added
-  
-   /**
-    * @todo For lab 2 see homework for week two of class
-    */
    export class woordle extends LitElement {
-     // a convention I enjoy so you can change the tag name in 1 place
+     static get tag() {
+       return 'woord-le';
+     }
+    constructor() {
+         super();
+  
+         this.endpoint = 'https://random-word-api.herokuapp.com/word?number=1&length=5';
+         this.word = '';
+         this.day = new Date();
+        
+       }
      static get properties() {
-   
      return{
        endpoint: {type: String},
+       word: {type: String, reflect: true},
   
      }
    }
-       constructor() {
-         super();
-         this.endpoint ='/api/wordGenerate';
-         this.word = [];
+ /*   firstUpdated(changedProperties) {
+     if (super.firstUpdated) {
+       super.firstUpdated(changedProperties);
+     }
+     this.getWordData();
+    } */
+ 
+   updated(changedProperties) {
+     changedProperties.forEach((oldValue, propName) => {
+       if (propName === 'word') {
+         this.getWordData(this[propName]);
        }
-     
+     });
+   }
+     async getWordData() {
   
-     updated(changedProperties) {
-      
-       changedProperties.forEach((oldValue, propName) => {
-    
-         if (propName === 'word' && this[propName]) {
-        
-           const evt = new CustomEvent('word-changed', {
-         
-             bubbles: true,
-        
-             composed: true,
-            
-             cancelable: true,
-           
-             detail: {
-               value: this.ip,
-             },
-           });
-  
-           this.dispatchEvent(evt);
+     return fetch(`${this.endpoint}`)
+       .then(resp => {
+         if (resp.ok) {
+           return resp.json();
          }
-       });
-     }
-  
-  
-  
-     firstUpdated(changedProperties) {
-  
-       if (super.firstUpdated) {
-         super.firstUpdated(changedProperties);
-       }
+         return false;
+       })
+       .then(data => {
+      
+ 
+      this.word = data.word;
+      console.log(data);
+ 
+       return data;
+     });
+     
+       ;} 
+       //  async getWordData() {
+       //   return fetch(`${this.endpoint}`)
+       //     .then(resp => resp.json())
+       //     .then(data => {
+       //       this.word =data.word;
+       //     }
+       //     );}
     
-       if (this.word === null) {
-         this.updateWord();
-       }
-     }
-  
-     async updateWord() {
-       return fetch(this.wordLookUp)
-         .then(resp => {
-           if (resp.ok) {
-             return resp.json();
-           }
-           return false;
-         })
-         .then(data => {
-           this.word = data.word;
-           this.wordLength = data.wordLength;
-  
-  
-           return data;
-         });
-     }
    
-      static get styles() {
-       return [
-         css`
-           :host {
-             display: block;
-           }
-        
-           ul {
-             margin: 0 8px;
-             list-style-type: square;
-             font-size: 20px;
-           }
-       
-           li {
-             margin: 0;
-             padding: 0;
-           }
-           .ipaddress {
-             font-style: var(--user-ip-ipaddress-font-style, italic);
-           }
-         `,
-       ];
-     }
-    
-  
+ 
      render() {
-       // this function runs every time a properties() declared variable changes
-       // this means you can make new variables and then bind them this way if you like
+       return html  `
+       word:"${this.word}"
   
-       const url = `https://random-word-api.herokuapp.com/all`;
-       // var wordList = await fetch(url).then(res => res.json());
-       // filter array to just 5 letter words
-       //wordList = wordList.filter(item => item.length === 5);
  
   
-  
-       return html  `<iframe title="Word" src = ${url}></iframe> `;
+       `;
      }}
     
-   customElements.define('woord-le', woordle);
+    
+   customElements.define(woordle.tag, woordle);
+  
+
+
+/* import fetch from 'node-fetch';
+ 
+export default async function handler(request, res) {
+ const { word } = request.query;
+ const url = `https://random-word-api.herokuapp.com/word?number=1&swear=0&length=5 `;
+const currentWord = await fetch(url).then(res => res.json());
+ res.setHeader('Cache-Control', 'max-age=0, s-maxage=1800');
+ res.setHeader('Access-Control-Allow-Credentials', 'true');
+ res.setHeader('Access-Control-Allow-Origin', '*');
+ res.setHeader(  'Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT' );
+ res.setHeader('Access-Control-Allow-Headers','X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+ );
+ res.json(await currentWord);
+} */
+import fetch from 'node-fetch';
+ 
+export default async function handler(request, res) {
+ const { word } = request.query;
+ switch (word) {
+   case 'GET':
+     const words = await fetch(`https://random-word-api.herokuapp.com/word?number=1&length=5`, {
+       method: 'GET',
+      
+     }).then((t) => {
+       if (t.ok) {
+         return t.json();
+       }
+     }).then((data) => data.record);
+     res.setHeader('Cache-Control', 'max-age=0, s-maxage=86400');
+     res.setHeader("Access-Control-Allow-Credentials", "true");
+     res.setHeader("Access-Control-Allow-Origin", "*");
+     res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
+     res.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
+     res.json(await words);
+   break;
+ }
+}
