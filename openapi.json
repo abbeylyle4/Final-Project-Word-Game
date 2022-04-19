@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "****" //not sure where Gigi put the vercel link
+      "url": "https://final-project-word-game-tau.vercel.app/"
     }
   ],
   
