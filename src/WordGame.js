@@ -9,8 +9,6 @@ let currentGuess = [];
 //This is the random word the user is trying to guess
 //let AnswerWord = wordArr[Math.floor(Math.random() * WORDS.length)]
  
- 
- 
 //Creating the actual game layout
  
  
