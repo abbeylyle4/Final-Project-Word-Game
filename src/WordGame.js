@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
  
    let guessedWords = [[]];
    let availableSpace = 1;
-   let word = 'Dairy';
+   let word = 'dairy';
    let guessedWordCount = 0;
  
    const keys = document.querySelectorAll(".keyboard-row button");
