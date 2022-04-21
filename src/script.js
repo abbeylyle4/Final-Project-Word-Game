@@ -17,6 +17,7 @@ let currentGuess = [];
 
 function initLayout(){
 	let layout = document.getElementById("layout");
+    //this.shadowRoot.querySelector("#layout")
 	
 	//Row for each guess
 	for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
