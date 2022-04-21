@@ -57,7 +57,7 @@ header {
    min-height: 68px;
    font-size: 50px;
    font-weight: bold;
-   color:rgb(58, 58, 68);
+   color:white;
    text-transform: uppercase;
    display: flex;
    justify-content: center;
@@ -68,7 +68,6 @@ header {
  
 #keyboard-container{
    height: 200px;
- 
 }
  
 #keyboard-rows {
@@ -85,6 +84,7 @@ header {
    border: 0;
    padding: 0;
    height: 58px;
+   width: 30px;
    cursor: pointer;
    background-color: rgb(129, 131, 132);
    color: (215, 218, 220);
