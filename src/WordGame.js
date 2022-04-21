@@ -1,177 +1,127 @@
-/*
- Get words from backend or wherever
- import { wordArr} from "./words.js";
-*/
+document.addEventListener("DOMContentLoaded", () => {
+   createSquares();
  
-let guessesRemaining = 6;
-let currentGuess = [];
+   let guessedWords = [[]];
+   let availableSpace = 1;
+   let word = 'Dairy';
+   let guessedWordCount = 0;
  
-//This is the random word the user is trying to guess
-//let AnswerWord = wordArr[Math.floor(Math.random() * WORDS.length)]
+   const keys = document.querySelectorAll(".keyboard-row button");
  
-//Creating the actual game layout
- 
- 
-function initLayout(){
-   let layout = document.getElementById("layout");
   
-   //Row for each guess
-   for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
-           let row = document.createElement("div")
-           row.className = "wordRow"
-      
-   //5 boxes for each guess
-       for (let j = 0; j < 5; j++) {
-           let box = document.createElement("div")
-           box.className = "letterBox"
-           row.appendChild(box)
+ 
+   function getCurrentWordArr(){
+       const numberOfGuessedWords = guessedWords.length;
+       return guessedWords[numberOfGuessedWords - 1]
+   }
+ 
+ 
+   function updateGuessedWords(letter){
+       const currentWordArr = getCurrentWordArr()
+ 
+       if (currentWordArr && currentWordArr.length < 5){
+           currentWordArr.push(letter);
+ 
+           const availableSpaceEl = document.getElementById(String(availableSpace))
+           availableSpace = availableSpace + 1;
+ 
+           availableSpaceEl.textContent = letter;
        }
  
-       layout.appendChild(row)
-   }
-}
- 
- 
-function addLetter (pressedKey) {
-   if (nextLetter === 5) { //Already filled
-       return
-   }
-   pressedKey = pressedKey.toLowerCase()
- 
-   let row = document.getElementsByClassName("wordRow")[6 - guessesRemaining]
-   let box = row.children[newLetterIndex]
-   box.textContent = pressedKey
-   box.classList.add("usedBox")
-   currentGuess.push(pressedKey)
-   newLetterIndex += 1
-}
- 
-function removeLetter () {
-   let row = document.getElementsByClassName("wordRow")[6 - guessesRemaining]
-   let box = row.children[nextLetter - 1]
-   box.textContent = ""
-   box.classList.remove("usedBox")
-   currentGuess.pop()
-   newLetterIndex -= 1
-}
- 
- 
- 
- 
-document.addEventListener("keyup", (e) => {
- 
-   if (guessesRemaining === 0) {
-       return
    }
  
-   let pressedKey = String(e.key)
-   if (pressedKey === "Backspace" && newLetterIndex !== 0) {
-       removeLetter()
-       return
+   function getTileColor(letter, index){
+       const isCorrectLetter = word.includes(letter)
+ 
+       if (!isCorrectLetter){
+           return "rgb (58, 58, 60)";
+       }
+ 
+       const letterInThatPosition = word.charAt(index)
+       const isCorrectPosition = letter === letterInThatPosition
+ 
+       if (isCorrectPosition) {
+           return "rgb(83, 141, 78)";
+       }
+ 
+       return "rgb(181, 159, 59)";
    }
  
-   /* need to hook up with backend
-    if (pressedKey === "Enter") {
-       checkGuess()
-       return
-    }
-   */
+   function handleSubmitWord() {
+       const currentWordArr = getCurrentWordArr();
+       if ( currentWordArr.length !=5) {
+           window.alert("word must be 5 letter!");
  
-   let allowedInput= pressedKey.match(/[a-z]/gi)
-   if (!allowedInput|| allowedInput.length > 1) { //stops numbers and shift/cntrl from being inputted
-       return
-   } else {
-       addLetter(pressedKey)
+       }
+ 
+       const currentWord = currentWordArr.join('');
+      
+        // fetch (api).then((res) => {
+          // throw Error() }
+       const firstLetterId = guessedWordCount * 5 +1;
+       const interval = 200;
+       currentWordArr.forEach((letter, index) => {
+           setTimeout(() => {
+               const tileColor = getTileColor(letter, index);
+ 
+               const letterId = firstLetterId + index;
+               const letterEl = document.getElementById(letterId);
+               letterEl.classList.add("animate__flipInX");
+               letterEl.style = `background-color:${tileColor}; boarder-color:${tileColor};`
+           }, interval * index);
+       });
+ 
+ 
+       if (currentWord === word) {
+           window.alert("Congratulations!");
+       }
+ 
+       if (guessedWords.length === 6){
+           window.alert (`sorry, you have no more guesses! The word is ${word}. `);
+       }
+// catch
+ 
+   }
+  
+   function createSquares() {
+       const gameBoard = document.getElementById("board")
+ 
+       for (let index = 0; index < 30; index++){
+           let square = document.createElement("div")
+           square.classList.add("square")
+           square.classList.add("animate_animated");
+           square.setAttribute("id", index +1)
+           gameBoard.appendChild(square);
+       }
+   }
+ 
+ 
+   function handleDeleteLetter(){
+       const currentWordArr = getCurrentWordArr()
+       const removedLetter = currentWordArr.pop()
+ 
+       guessedWords[guessedWords.length -1] - currentWordArr
+ 
+       const lastLetterEl = document.getElementById(String(availableSpace -1))
+ 
+       lastLetterEl.textContent = " "
+       availableSpace = availableSpace -1
+   }
+   for (let i = 0; i <keys.length; i++){
+       keys[i].onclick = ({target}) => {
+           const letter = target.getAttribute("data-key");
+ 
+           if(letter === 'Enter'){
+               handleSubmitWord();
+               return;
+           }
+ 
+           if (letter === 'Delete') {
+               handleDeleteLetter();
+               return;
+           }
+ 
+           updateGuessedWords(letter);
+       };
    }
 })
- 
- 
-function shadeKeyBoard(letter, color) {
-   for (const elem of document.getElementsByClassName("keyButton")) {
-       if (elem.textContent === letter) {
-           let oldColor = elem.style.backgroundColor
-           if (oldColor === 'green') {
-               return
-           }
- 
-           if (oldColor === 'yellow' && color !== 'green') {
-               return
-           }
- 
-           elem.style.backgroundColor = color
-           break
-       }
-   }
-}
- 
- 
- 
- 
-//Checking the guess ******** Long code chunk
- 
-function checkGuess () {
-   let row = document.getElementsByClassName("wordRow")[6 - guessesRemaining]
-   let guessWord = ''
-   let Answer= Array.from(AnswerWord)
- 
-   for (const val of currentGuess) {
-       guessWord += val
-   }
- 
-   if (guessString.length != 5)
-       return;
-  
- 
-   if (!WORDS.includes(guessWord)) {
-       alert("Is not a word")
-       return
-   }
- 
-  
-   for (let i = 0; i < 5; i++) {
-       let letterColor = ''
-       let box = row.children[i]
-       let letter = currentGuess[i]
-      
-       let letterPlace = Answer.indexOf(currentGuess[i])
-       // is letter in the correct guess
-       if (letterPlace === -1) { //Not even in the word
-           letterColor = 'grey'
-       } else {
-           // letter in word
-           // if letter index and right guess index are the same
-           // letter is in the right position
-           if (currentGuess[i] === rightGuess[i]) {
-               letterColor = 'green'
-           } else {
-               // Right letter, wrong place
-               letterColor = 'yellow'
-           }
- 
-           rightGuess[letterPlace] = "!"
-       }
- 
-       let delay = 150 * i
-       setTimeout(()=> {
-           //shade box
-           box.style.backgroundColor = letterColor
-           shadeKeyBoard(letter, letterColor)
-       }, delay)
-   }
- 
-   if (guessWord === Answer) {
-       alert("That is correct")
-       guessesRemaining = 0
-       return
-   } else {
-       guessesRemaining -= 1;
-       currentGuess = [];
-       nextLetter = 0;
- 
-       if (guessesRemaining === 0) {
-           alert(`The word was: "${Answer}"`)
-       }
-   }
-}
- 
-initBoard();
