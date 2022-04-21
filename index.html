@@ -4,9 +4,17 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Wordle</title>
+  <title>Wordle-project</title>
+ 
+   <link rel="stylesheet" href="css/style.css" />
+ 
+   <link
+   rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+ />
 </head>
-<style>
+<body>
+  <style>
    h2{
        text-align:center;
        font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -23,47 +31,60 @@
 <body style= background-color:#ADACAC>
    <h2><s>Wordle </s> </h2>
    <h1>WOORDLE</h1>
-    
-    <div id="layout">
-    </div>
-     <div id="keyboard">
-        <div class="rowKeys">
-            <button class="keyButton">q</button>
-            <button class="keyButton">w</button>
-            <button class="keyButton">e</button>
-            <button class="keyButton">r</button>
-            <button class="keyButton">t</button>
-            <button class="keyButton">y</button>
-            <button class="keyButton">u</button>
-            <button class="keyButton">i</button>
-            <button class="keyButton">o</button>
-            <button class="keyButton">p</button>
-        </div>
-        <div class="rowKeys">
-            <button class="keyButton">a</button>
-            <button class="keyButton">s</button>
-            <button class="keyButton">d</button>
-            <button class="keyButton">f</button>
-            <button class="keyButton">g</button>
-            <button class="keyButton">h</button>
-            <button class="keyButton">j</button>
-            <button class="keyButton">k</button>
-            <button class="keyButton">l</button>
-        </div>
-        <div class="rowKeys">
-            <button class="keyButton">Del</button>
-            <button class="keyButton">z</button>
-            <button class="keyButton">x</button>
-            <button class="keyButton">c</button>
-            <button class="keyButton">v</button>
-            <button class="keyButton">b</button>
-            <button class="keyButton">n</button>
-            <button class="keyButton">m</button>
-            <button class="keyButton">Enter</button>
-        </div>
-    </div>
-    
-<script src="src/WordGame.js" defer></script>
-
+  
+   <div id = "container">
+       <div id = "game"></div>
+           <header>
+               <h1 class = "title">Wordle</h1>
+           </header>
+ 
+           <div id= board-container>
+               <div id= "board"></div>
+               </div>
+ 
+ 
+    <div id="keyboard-container">
+       <div class="keyboard-row">
+           <button data-key="q">q</button>
+           <button data-key="w">w</button>
+           <button data-key="e">e</button>
+           <button data-key="e">r</button>
+           <button data-key="t">t</button>
+           <button data-key="y">y</button>
+           <button data-key="u">u</button>
+           <button data-key="i">i</button>
+           <button data-key="o">o</button>
+           <button data-key="p">p</button>
+          
+       </div>
+       <div class="keyboard-row">
+           <button data-key="a">a</button>
+           <button data-key="s">s</button>
+           <button data-key="d">d</button>
+           <button data-key="f">f</button>
+           <button data-key="g">g</button>
+           <button data-key="h">h</button>
+           <button data-key="j">j</button>
+           <button data-key="k">k</button>
+           <button data-key="l">l</button>
+          
+         
+      
+       </div>
+       <div class="keyboard-row">
+           <button data-key="Delete">Delete</button>
+           <button data-key="z">z</button>
+           <button data-key="x">x</button>
+           <button data-key="c">c</button>
+           <button data-key="v">v</button>
+           <button data-key="b">b</button>
+           <button data-key="n">n</button>
+           <button data-key="m">m</button>
+           <button data-key="Enter">Enter</button>
+       </div>
+   </div>
+ 
+  <script src="src/WordGame.js" defer></script>
+  
 </body>
 </html>
