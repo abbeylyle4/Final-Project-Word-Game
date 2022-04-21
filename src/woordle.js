@@ -1,5 +1,5 @@
-// dependencies / things imported
-  import { LitElement, html, css } from 'lit';
+ // dependencies / things imported
+   import { LitElement, html, css } from 'lit';
  
    export class woordle extends LitElement {
      static get tag() {
@@ -8,9 +8,10 @@
     constructor() {
          super();
   
-         this.endpoint = 'https://random-word-api.herokuapp.com/word?number=1&length=5';
+         this.endpoint = '../api/wordGenerate';
          this.word = '';
          this.day = new Date();
+         this.getWordData();
         
        }
      static get properties() {
@@ -20,17 +21,11 @@
   
      }
    }
- /*   firstUpdated(changedProperties) {
-     if (super.firstUpdated) {
-       super.firstUpdated(changedProperties);
-     }
-     this.getWordData();
-    } */
  
    updated(changedProperties) {
      changedProperties.forEach((oldValue, propName) => {
        if (propName === 'word') {
-         this.getWordData(this[propName]);
+    
        }
      });
    }
@@ -44,34 +39,21 @@
          return false;
        })
        .then(data => {
-      
+         console.log(data);
  
-      this.word = data.word;
-      console.log(data);
+         this.word= data[0];
+ 
  
        return data;
      });
      
        ;} 
-       //  async getWordData() {
-       //   return fetch(`${this.endpoint}`)
-       //     .then(resp => resp.json())
-       //     .then(data => {
-       //       this.word =data.word;
-       //     }
-       //     );}
-    
-   
  
      render() {
        return html  `
-       word:"${this.word}"
-  
- 
-  
+       word: ${this.word}
        `;
      }}
     
     
    customElements.define(woordle.tag, woordle);
- 
