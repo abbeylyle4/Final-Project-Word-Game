@@ -83,14 +83,18 @@ header {
    font-weight: bold;
    border: 0;
    padding: 0;
-   height: 58px;
-   width: 30px;
+   height: 40px;
+   width: 47px;
    cursor: pointer;
    background-color: rgb(129, 131, 132);
    color: (215, 218, 220);
    flex-grow: 1;
    margin-right: 6px;
-   border-radius: 4px;
+   margin-bottom: 8px;
+   border-radius: 6px;
    user-select: none;
   
 }
+.center {
+   text-align: center;
+   }
