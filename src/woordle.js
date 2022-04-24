@@ -14,7 +14,7 @@
          this.getWordData();
  
          this.guessedWords = [[]];
-         this.availableSpace = 1;
+         this.availableSpace = 1; //used to figure out if its letter 1,2,3 etc. ..... if set to whatever next number is??
          this.word = 'dairy';
          this.guessedWordCount = 0;
        }
@@ -89,7 +89,10 @@
     if (currentWord === this.word) {
         window.alert("Congratulations!");
     }
-
+    else{
+      window.alert("Wrong!");
+      //something in here needs to shift it to the "try again", and move it down
+    }
     if (this.guessedWords.length === 6){
         window.alert (`sorry, you have no more guesses! The word is ${this.word}. `);
     }
