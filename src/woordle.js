@@ -94,17 +94,24 @@
 
 
     if (currentWord === this.word) {
-        window.alert("Congratulations!");
-        this.updateOutcome(this.guessedWords.length,true)
+      if(this.guessedWords.length === 1)
+              window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guess!"  );
+      else 
+        window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guesses!");
+    
+            this.updateOutcome(this.guessedWords.length,true)
     }
     else{
-      window.alert("Wrong!");
-      //something in here needs to shift it to the "try again", and move it down
+          window.alert("Wrong!");
+          //something in here needs to shift it to the "try again", and move it down
     }
+       
     if (this.guessedWords.length === 6){
         window.alert (`sorry, you have no more guesses! The word is ${this.word}. `);
         this.updateOutcome(this.guessedWords.length,false)
     }
+
+    this.guessedWords.push([]);
 // catch
 } 
 
