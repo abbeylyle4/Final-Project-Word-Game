@@ -17,12 +17,19 @@
          this.availableSpace = 1; //used to figure out if its letter 1,2,3 etc. ..... if set to whatever next number is??
          this.word = 'dairy';
          this.guessedWordCount = 0;
+
+         this.players = 0
+         this.tries = 0
+         this.wins = 0
        }
 
      static get properties() {
      return{
        endpoint: {type: String},
        word: {type: String, reflect: true},
+       players: {type: Number},
+       tries: {type: Number},
+       wins: {type: Number}
   
      }
    }
@@ -88,6 +95,7 @@
 
     if (currentWord === this.word) {
         window.alert("Congratulations!");
+        this.updateOutcome(this.guessedWords.length,true)
     }
     else{
       window.alert("Wrong!");
@@ -95,6 +103,7 @@
     }
     if (this.guessedWords.length === 6){
         window.alert (`sorry, you have no more guesses! The word is ${this.word}. `);
+        this.updateOutcome(this.guessedWords.length,false)
     }
 // catch
 } 
@@ -170,7 +179,34 @@
        return data;
      });
      
-       ;} 
+      }
+
+       async updateOutcome(tries,result) {
+        const data = {
+          tries: tries,
+          result: result,
+        };
+        const urlRequest = '../api/addData?' + new URLSearchParams(data).toString();
+
+        return fetch(urlRequest)
+          .then(resp => {
+            if (resp.ok) {
+              return resp.json();
+            }
+            return false;
+          })
+          .then(data => {
+            console.log(data.wins);
+    
+            this.players= data.players;
+            this.result = data.wins;
+            this.tries = data.tries
+    
+    
+          return data;
+        });
+        
+          }
  
      render() {
        return html
@@ -223,6 +259,9 @@
     </div>
   </div>
        word: ${this.word}
+       players: ${this.players}
+       tries: ${this.tries}
+       wins: ${this.wins}
        `;
      }
 
