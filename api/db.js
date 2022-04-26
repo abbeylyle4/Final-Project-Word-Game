@@ -2,7 +2,7 @@ import { PSDB } from 'planetscale-node';
 
 export default async function handler(req, res) {
   const conn = new PSDB('main');
-  const [dbResult] = await conn.query('select players, tries, wins from woordle2');
+  const [dbResult] = await conn.query('select * from woordle2');
   res.setHeader('Cache-Control', 'max-age=0, s-maxage=300');
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Origin", "*");
