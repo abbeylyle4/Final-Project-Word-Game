@@ -96,9 +96,9 @@
 
     if (currentWord === this.word) {
       if(this.guessedWords.length === 1)
-              window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guess!" + "  " + "Game stats: " + data.tries);
+              window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guess!");
       else 
-      window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guesses!");
+      window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guesses! Game stats: " + data.wins + " people have won");
     
             this.updateOutcome(this.guessedWords.length,true)
     }
@@ -109,7 +109,7 @@
     }
        
     if (this.guessedWords.length === 6){
-        window.alert ("sorry, you have no more guesses! The word is "+ this.word);
+        window.alert ("sorry, you have no more guesses! The word is "+ this.word + "Game stats: " + data.wins + " people have won");
         this.updateOutcome(this.guessedWords.length,false)
     }
 
