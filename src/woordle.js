@@ -44,7 +44,7 @@
  updateGuessedWords(letter){
     const currentWordArr = this.getCurrentWordArr()
 
-    if (currentWordArr && currentWordArr.length < 6){
+    if (currentWordArr && currentWordArr.length < 5){
         currentWordArr.push(letter);
         const availableSpaceEl = this.shadowRoot.querySelector('#letter' + String(this.availableSpace))
         this.availableSpace = this.availableSpace + 1;
@@ -70,7 +70,7 @@
     return "rgb(181, 159, 59)";
 }
 
- handleSubmitWord() {
+ async handleSubmitWord() {
     const currentWordArr = this.getCurrentWordArr();
     if ( currentWordArr.length !=5) {
         window.alert("word must be 5 letter!");
@@ -96,11 +96,13 @@
 
     if (currentWord === this.word) {
       if(this.guessedWords.length === 1)
-              window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guess! Game stats: " + this.result + " people have won");
+              window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guess! Game stats: " + this.result + " people have won" );
+              
       else 
-      window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guesses! Game stats: " + this.result + " people have won");
+      
     
-            this.updateOutcome(this.guessedWords.length,true)
+           await this.updateOutcome(this.guessedWords.length,true)
+           window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + " guesses! Game stats: " + this.result + " people have won");
     }
     else{
           window.alert("Wrong!");
