@@ -96,7 +96,7 @@
 
     if (currentWord === this.word) {
       if(this.guessedWords.length === 1)
-              window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guess!" + "  " + "Game stats: " + data.tries)
+              window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guess!" + "  " + "Game stats: " + data.tries);
       else 
       window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guesses!");
     
