@@ -92,6 +92,7 @@
         }, interval * index);
     });
 
+    this.guessedWordCount += 1;
 
     if (currentWord === this.word) {
       if(this.guessedWords.length === 1)
