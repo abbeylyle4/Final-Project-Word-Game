@@ -192,7 +192,7 @@
        async updateOutcome(tries,result, players) {
         const data = {
           tries: tries,
-          result: result,
+          result: wins,
           players: players,
         };
         const urlRequest = '../api/addData?' + new URLSearchParams(data).toString();
@@ -270,7 +270,7 @@
        word: ${this.word}
        players: ${this.players}
        tries: ${this.tries}
-       result: ${this.result}
+       wins: ${this.result}
        `;
      }
 
