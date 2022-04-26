@@ -20,7 +20,7 @@
 
          this.players = 0
          this.tries = 0
-         this.wins = 0
+         this.result = 0
        }
 
      static get properties() {
@@ -29,7 +29,7 @@
        word: {type: String, reflect: true},
        players: {type: Number},
        tries: {type: Number},
-       wins: {type: Number}
+       result: {type: Number}
   
      }
    }
@@ -270,7 +270,7 @@
        word: ${this.word}
        players: ${this.players}
        tries: ${this.tries}
-       wins: ${this.wins}
+       result: ${this.result}
        `;
      }
 
