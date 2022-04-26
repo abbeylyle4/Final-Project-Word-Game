@@ -44,7 +44,7 @@
  updateGuessedWords(letter){
     const currentWordArr = this.getCurrentWordArr()
 
-    if (currentWordArr && currentWordArr.length < 5){
+    if (currentWordArr && currentWordArr.length < 6){
         currentWordArr.push(letter);
         const availableSpaceEl = this.shadowRoot.querySelector('#letter' + String(this.availableSpace))
         this.availableSpace = this.availableSpace + 1;
@@ -108,7 +108,7 @@
           //something in here needs to shift it to the "try again", and move it down
     }
        
-    if (this.guessedWords.length === 6){
+    if (this.guessedWords.length === 7){
         window.alert ("sorry, you have no more guesses! The word is "+ this.word + "Game stats: " + this.result + " people have played");
         this.updateOutcome(this.guessedWords.length,false)
     }
