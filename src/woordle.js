@@ -97,12 +97,13 @@
       if(this.guessedWords.length === 1)
               window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guess!"  );
       else 
-        window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guesses!");
+      window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guesses!");
     
             this.updateOutcome(this.guessedWords.length,true)
     }
     else{
           window.alert("Wrong!");
+          this.guessedWords.push([]);
           //something in here needs to shift it to the "try again", and move it down
     }
        
@@ -111,7 +112,6 @@
         this.updateOutcome(this.guessedWords.length,false)
     }
 
-    this.guessedWords.push([]);
 // catch
 } 
 
