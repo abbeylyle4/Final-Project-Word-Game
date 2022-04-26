@@ -16,6 +16,7 @@ paths:
           headers: {}
       operationId: get-getWord
       parameters: []
+      x-internal: false
     parameters:
       - schema:
           type: string
