@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   const conn = new PSDB('main', {namedPlaceholders: true});
   // INSERT the values that came across into the users table
   const [dbResult] = await conn.execute(
-    `INSERT INTO woordle2 (tries, result) VALUES(:tries, :result)`,
+    `INSERT INTO woordle2 (tries, result, players) VALUES(:tries, :result, :players)`,
     woordle2
   );
   // take the id that comes back and then apply to the user object
