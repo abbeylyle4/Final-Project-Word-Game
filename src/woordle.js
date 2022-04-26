@@ -188,10 +188,11 @@
      
       }
 
-       async updateOutcome(tries,result) {
+       async updateOutcome(tries,result, players) {
         const data = {
           tries: tries,
           result: result,
+          players: players,
         };
         const urlRequest = '../api/addData?' + new URLSearchParams(data).toString();
 

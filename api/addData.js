@@ -2,10 +2,11 @@ import { PSDB } from 'planetscale-node';
 
 export default async function handler(req, res) {
   // this is making wide sweeping assumptions of the data accuracy
-  const { tries, result } = req.query;
+  const { tries, result, players } = req.query;
   var woordle2 = {
     tries: tries,
     result: result,
+    players: players,
   };
   // this option helps establish a more secure connection object
   const conn = new PSDB('main', {namedPlaceholders: true});
