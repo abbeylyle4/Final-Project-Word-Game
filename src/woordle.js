@@ -26,7 +26,7 @@
      static get properties() {
      return{
        endpoint: {type: String},
-       word: {type: String, reflect: true},
+       word: {type: String},
        players: {type: Number},
        tries: {type: Number},
        result: {type: Number}
@@ -349,7 +349,7 @@
      }
       
      .keyboard-row button {
-        font-family: inherit;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-weight: bold;
         border: 0;
         padding: 0;
