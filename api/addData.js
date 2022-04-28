@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const { tries, result } = req.query;
   var woordle2 = {
     tries: tries,
-    result: result,
+    result: result ? 1 : 0,
   };
   // this option helps establish a more secure connection object
   const conn = new PSDB('main', {namedPlaceholders: true});
