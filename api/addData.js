@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   const data = {
       players: metrics.length,
       wins: wincount.length,
-      tries: triescount[0]
+      tries: triescount[0]["AVG(tries)"]
   }
   res.json(data);
 
