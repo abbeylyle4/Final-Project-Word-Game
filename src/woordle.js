@@ -26,7 +26,7 @@
      static get properties() {
      return{
        endpoint: {type: String},
-       word: {type: String},
+       word: {type: String, reflect: true},
        players: {type: Number},
        tries: {type: Number},
        result: {type: Number}
