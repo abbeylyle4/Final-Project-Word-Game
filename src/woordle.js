@@ -122,7 +122,6 @@ async handleSubmitWord() {
 
 handleDeleteLetter(){
   if(!this.blockDelete){
-this.blockDelete = false;
 
  const currentWordArr = this.getCurrentWordArr()
  const removedLetter = currentWordArr.pop()
@@ -146,7 +145,6 @@ firstUpdated() { //stuff in render is sfae to ask questions of
            this.handleSubmitWord();
            return;
        }
-        this.blockDelete=false;
        if (letter === 'Delete') {
            this.handleDeleteLetter();
            return;
