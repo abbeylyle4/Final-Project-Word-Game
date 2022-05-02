@@ -20,7 +20,7 @@
 
          this.players = 0
          this.tries = 0
-         this.wins = 0
+         this.result = 0
        }
 
      static get properties() {
@@ -29,7 +29,7 @@
        word: {type: String, reflect: true},
        players: {type: Number},
        tries: {type: Number},
-       wins: {type: Number}
+       result: {type: Number}
   
      }
    }
@@ -70,7 +70,7 @@
     return "rgb(181, 159, 59)";
 }
 
- handleSubmitWord() {
+ async handleSubmitWord() {
     const currentWordArr = this.getCurrentWordArr();
     if ( currentWordArr.length !=5) {
         window.alert("word must be 5 letter!");
@@ -96,11 +96,13 @@
 
     if (currentWord === this.word) {
       if(this.guessedWords.length === 1)
-              window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guess!")
+              window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guess! Game stats: " + this.result + " people have won. Average tries have been: " + this.tries );
+              
       else 
-      window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + "guesses!");
+      
     
-            this.updateOutcome(this.guessedWords.length,true)
+           await this.updateOutcome(this.guessedWords.length,true)
+           window.alert("Congratulations, you guessed the right word in " + this.guessedWords.length + " guesses! Game stats: " + this.result + " people have won. Average tries have been: " + this.tries);
     }
     else{
           window.alert("Wrong!");
@@ -108,8 +110,8 @@
           //something in here needs to shift it to the "try again", and move it down
     }
        
-    if (this.guessedWords.length === 6){
-        window.alert ("sorry, you have no more guesses! The word is "+ this.word);
+    if (this.guessedWords.length === 7){
+        window.alert ("Sorry, you have no more guesses! The word is "+ this.word + "Game stats: " + this.result + " people have won.  Average tries have been: " + this.tries);
         this.updateOutcome(this.guessedWords.length,false)
     }
 
@@ -117,6 +119,13 @@
 } 
 
  handleDeleteLetter(){
+  const blockDelete = this.blockDelete;
+  if (!this.blockDelete){
+    this.blockDelete = true;
+  }
+  else
+  this.blockDelete = false;
+  
     const currentWordArr = this.getCurrentWordArr()
     const removedLetter = currentWordArr.pop()
 
@@ -189,11 +198,11 @@
      
       }
 
-       async updateOutcome(tries,result, players) {
+       async updateOutcome(tries,result ) {
         const data = {
           tries: tries,
           result: result,
-          players: players,
+         
         };
         const urlRequest = '../api/addData?' + new URLSearchParams(data).toString();
 
@@ -270,7 +279,7 @@
        word: ${this.word}
        players: ${this.players}
        tries: ${this.tries}
-       wins: ${this.wins}
+       wins: ${this.result}
        `;
      }
 
@@ -347,7 +356,7 @@
      }
       
      .keyboard-row button {
-        font-family: inherit;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-weight: bold;
         border: 0;
         padding: 0;
