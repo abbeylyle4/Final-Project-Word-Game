@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wordle-project</title>
+  <title>Woordle-project</title>
  
    <link
    rel="stylesheet"
@@ -25,11 +25,29 @@
        font-size: 60px;
    }
 
+   p{
+    color: white;
+   text-align: center;
+   text-decoration: none;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 24px;
+}
+
+
 </style>
 <body style= background-color:black>
    <h2><s>Wordle </s> </h2>
  <woord-le></woord-le>
   <script src="src/woordle.js" type="module"></script>
   
+  <script>
+    function refresh(){
+          window.location.reload("Refresh")
+        }
+  </script>
+   <p><input type="button" value="New Word" onClick="refresh(this)"></p>
+
 </body>
 </html>

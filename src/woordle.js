@@ -121,6 +121,7 @@ async handleSubmitWord() {
 } 
 
 handleDeleteLetter(){
+  if(!this.blockDelete){
 this.blockDelete = false;
 
  const currentWordArr = this.getCurrentWordArr()
@@ -132,6 +133,7 @@ this.blockDelete = false;
 
  lastLetterEl.textContent = " "
  this.availableSpace = this.availableSpace -1
+}
 }
 
 firstUpdated() { //stuff in render is sfae to ask questions of
