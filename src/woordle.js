@@ -146,7 +146,7 @@ firstUpdated() { //stuff in render is sfae to ask questions of
            this.handleSubmitWord();
            return;
        }
-
+        this.blockDelete=false;
        if (letter === 'Delete') {
            this.handleDeleteLetter();
            return;
