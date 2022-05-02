@@ -226,6 +226,7 @@ updated(changedProperties) {
        }
 
   render() {
+    this.blockDelete = false;
     return html
     `
      <div id="container">
