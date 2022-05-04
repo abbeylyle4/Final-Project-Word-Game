@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: GuessDoc
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: kfo5087@psu.edu
+    name: Kayra Orankoy
+    url: https://github.com/kfo5087/Final-Project-Word-Game/tree/main
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  description: Word guessing game made using API and Webcomponents, has no relation to the hit game Wordle.
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/IST402WORDGUESS/GUESSDOC/1.0.0
+  - url: 'https://petstore.swagger.io/v2'
+tags:
+  - name: wordGenerate
+    description: Generates a random 5 letter word for users to guess.
+    externalDocs:
+      url: https://github.com/abbeylyle4/Final-Project-Word-Game/tree/main/api
+  - name: addData
+    externalDocs:
+      url: https://github.com/abbeylyle4/Final-Project-Word-Game/tree/main/api
+      description: Find out more
+    description: stores data to determine results
+  - description: Connects user data to database and stores results
+    name: db
+    externalDocs:
+      url: https://github.com/abbeylyle4/Final-Project-Word-Game/tree/main/api
+      description: Find out more
+paths:
+  /wordGenerate:
+    get:
+      summary: Gets a word
+      tags:
+        - wordGenerate
+      responses:
+        '200':
+          description: Grabs a randomly generated word to use for the game by leveraging the api
+          headers: {}
+      operationId: getWordData
+      parameters: []
+      - schema:
+          type: string
+        name: ''
+        in: path
+        required: true
+  /addData:
+    get:
+      summary: User data
+      tags:
+        - addData
+      responses:
+        '200':
+          description: Takes user data and compiles it to be added to the database and send out status of game
+          headers: {}
+      operationId: data
+      parameters: []
+      - schema:
+          type: string
+        name: ''
+        in: path
+        required: true
+  /db:
+    get:
+      summary: Data Base
+      tags:
+        - addData
+      responses:
+        '200':
+          description: Links to planetscale database to store user information
+          headers: {}
+      operationId: dbresult
+      parameters: []
+      - schema:
+          type: string
+        name: ''
+        in: path
+        required: true
+api_key:
+      type: apiKey
+      name: api_key
+      in: header      
